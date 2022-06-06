@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.example.stockprice.HomeScreenFragment"
+        android:label="HomeScreenFragment" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_listAllStocksFragment"
+            app:destination="@id/listAllStocksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listAllStocksFragment"
+        android:name="com.example.stockprice.ListAllStocksFragment"
+        android:label="ListAllStocksFragment" >
+        <action
+            android:id="@+id/action_listAllStocksFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_listAllStocksFragment_to_homeScreenFragment2"
+            app:destination="@id/homeScreenFragment" />
+    </fragment>
+</navigation>
