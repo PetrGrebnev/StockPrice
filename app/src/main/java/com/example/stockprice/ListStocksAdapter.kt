@@ -10,7 +10,7 @@ class ListStocksAdapter(
     private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ListStocksAdapter.ViewHolder>(){
 
-    private var stocks: MutableList<Stock> = mutableListOf()
+    private var stocks: MutableList<ListStockModelApi> = mutableListOf()
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val itemSymbol: TextView = itemView.findViewById(R.id.symbol_stock)
@@ -34,7 +34,5 @@ class ListStocksAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = stocks.size
 }
