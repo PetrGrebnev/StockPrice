@@ -9,8 +9,8 @@ import retrofit2.Response
 
 class HomeScreenViewModel(private val repository: Repository): ViewModel() {
 
-    private val _stokcs: MutableLiveData<List<StockModel>>()
-    val stocks: LiveData<List<StockModel>> = _stokcs
+    private var _stokcs = MutableLiveData<List<StockModel>?>()
+    val stocks: MutableLiveData<List<StockModel>?> = _stokcs
 
     fun loadAllStocks(){
         repository.getAllStock(object : Callback<ListStockModelApi>{
@@ -18,8 +18,10 @@ class HomeScreenViewModel(private val repository: Repository): ViewModel() {
                 call: Call<ListStockModelApi>,
                 response: Response<ListStockModelApi>
             ) {
-                val responseBody = response.body()
-
+                val responseBody = response.body().let { responseMap ->
+                    responseMap?.data
+                }
+                _stokcs.value = responseBody
             }
 
             override fun onFailure(call: Call<ListStockModelApi>, t: Throwable) {

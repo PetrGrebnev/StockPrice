@@ -1,6 +1,5 @@
 package com.example.stockprice
 
-class ListStockModelApi(
-    data: StockModel
-) {
-}
+data class ListStockModelApi(
+    val data: StockModel
+)

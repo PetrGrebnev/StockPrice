@@ -1,10 +1,10 @@
 package com.example.stockprice
 
-class StockModel(
-    name: String,
-    symbol: String,
-    hasIntraday: Boolean,
-    hasEod: Boolean,
-    country: String,
-    stock_exchange: StockExchange
+data class StockModel(
+    val name: String,
+    val symbol: String,
+    val hasIntraday: Boolean,
+    val hasEod: Boolean,
+    val country: String,
+    val stock_exchange: StockExchange
 )
