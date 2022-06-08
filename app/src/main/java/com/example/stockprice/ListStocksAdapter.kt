@@ -1,16 +1,25 @@
 package com.example.stockprice
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stockprice.modelapi.StockModelApi
 
 class ListStocksAdapter(
     private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ListStocksAdapter.ViewHolder>(){
 
-    private var stocks: MutableList<ListStockModelApi> = mutableListOf()
+    private var stocks: MutableList<StockModelApi> = mutableListOf()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setListNote(stocks: List<StockModelApi>) {
+        this.stocks = stocks.toMutableList()
+
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val itemSymbol: TextView = itemView.findViewById(R.id.symbol_stock)
@@ -30,7 +39,7 @@ class ListStocksAdapter(
         val item = stocks[position]
         holder.apply {
             itemSymbol.text = item.symbol
-            itemFullName.text = item.fullName
+            itemFullName.text = item.name
         }
     }
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stockprice.databinding.HomeScreenFragmentBinding
 
 class HomeScreenFragment : Fragment(R.layout.home_screen_fragment) {
@@ -30,6 +31,26 @@ class HomeScreenFragment : Fragment(R.layout.home_screen_fragment) {
         super.onViewCreated(view, savedInstanceState)
         bindingHome = HomeScreenFragmentBinding.bind(view)
         adapter = ListStocksAdapter(layoutInflater)
-        homeScreenViewModel.
+        initHomeScreenViewModel()
+        binding.apply {
+                homeFragmentListStocks.adapter = adapter
+            homeFragmentListStocks.layoutManager = LinearLayoutManager(requireContext())
+        }
+        homeScreenViewModel.stocks.observe(viewLifecycleOwner){
+            when (it) {
+                is ResultState.Error -> {
+                    binding.textError.text = "ERROR: " + it.throwable.message
+                    binding.homeFragmentListStocks.visibility = View.GONE
+                }
+                is ResultState.Loading -> {
+                    binding.textError.text = "Loanding"
+                    binding.homeFragmentListStocks.visibility = View.GONE
+                }
+                is ResultState.Success -> {
+                    binding.homeFragmentListStocks.visibility = View.VISIBLE
+                    adapter.setListNote(it.data)
+                }
+            }
+        }
     }
 }
