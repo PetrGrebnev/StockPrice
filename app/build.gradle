@@ -39,9 +39,16 @@ android {
 
 dependencies {
 
+    def retrofitVersion = '2.9.0'
+    def koinVersion = '3.2.0'
+
+    //Koin
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+
     //API
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation 'androidx.core:core-ktx:1.8.0'

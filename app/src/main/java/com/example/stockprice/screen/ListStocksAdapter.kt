@@ -1,4 +1,4 @@
-package com.example.stockprice
+package com.example.stockprice.screen
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stockprice.R
 import com.example.stockprice.modelapi.StockModelApi
 
 class ListStocksAdapter(

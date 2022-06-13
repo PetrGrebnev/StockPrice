@@ -1,9 +1,11 @@
-package com.example.stockprice
+package com.example.stockprice.screen
 
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.stockprice.Repository
+import com.example.stockprice.ResultState
 import com.example.stockprice.modelapi.ListStockApiModel
 import com.example.stockprice.modelapi.StockModelApi
 import retrofit2.Call
