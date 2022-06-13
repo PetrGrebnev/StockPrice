@@ -3,25 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/homeSearchFragment">
 
     <fragment
-        android:id="@+id/homeScreenFragment"
-        android:name="com.example.stockprice.screen.HomeScreenFragment"
-        android:label="HomeScreenFragment" >
+        android:id="@+id/homeSearchFragment"
+        android:name="com.example.stockprice.screen.HomeSearchFragment"
+        android:label="HomeSearchFragment" >
         <action
-            android:id="@+id/action_homeScreenFragment_to_listAllStocksFragment"
-            app:destination="@id/listAllStocksFragment" />
+            android:id="@+id/action_homeSearchFragment_to_allListStockFragment"
+            app:destination="@id/allListStockFragment" />
     </fragment>
     <fragment
-        android:id="@+id/listAllStocksFragment"
-        android:name="com.example.stockprice.ListAllStocksFragment"
-        android:label="ListAllStocksFragment" >
+        android:id="@+id/allListStockFragment"
+        android:name="com.example.stockprice.screen.AllListStockFragment"
+        android:label="AllListStockFragment" >
         <action
-            android:id="@+id/action_listAllStocksFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
-        <action
-            android:id="@+id/action_listAllStocksFragment_to_homeScreenFragment2"
-            app:destination="@id/homeScreenFragment" />
+            android:id="@+id/action_allListStockFragment_to_homeSearchFragment"
+            app:destination="@id/homeSearchFragment" />
     </fragment>
 </navigation>

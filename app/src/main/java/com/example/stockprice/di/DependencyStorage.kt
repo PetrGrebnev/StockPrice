@@ -1,12 +1,18 @@
 package com.example.stockprice.di
 
 import android.content.Context
+import androidx.room.RoomDatabase
+import com.example.stockprice.DAO
+import com.example.stockprice.DatabaseStock
+import com.example.stockprice.Mappers
 import com.example.stockprice.application.PermissionChecker
 import com.example.stockprice.Repository
 
 object DependencyStorage {
     fun init(applicationContext: Context) {
         Android.init(applicationContext)
+        Database.init(applicationContext)
+        Dao.init()
         Repositories.init()
     }
 
@@ -21,16 +27,6 @@ object DependencyStorage {
             Android.applicationContext = applicationContext
             permissionChecker = DependencyFactory.createPermissionChecker(applicationContext)
         }
-
-    }
-
-    object Repositories {
-        lateinit var repository: Repository
-            private set
-
-        fun init() {
-            repository = DependencyFactory.createRepository(Api.stockApi)
-        }
     }
 
     object Network {
@@ -41,5 +37,43 @@ object DependencyStorage {
 
     object Api {
         val stockApi = DependencyFactory.createApi(Network.retrofit)
+    }
+
+    object Database {
+        lateinit var applicationContext: Context
+            private set
+
+        lateinit var databaseStock: DatabaseStock
+            private set
+
+        fun init(applicationContext: Context) {
+            Database.applicationContext = applicationContext
+            databaseStock = DependencyFactory.createDatabase(applicationContext)
+        }
+    }
+
+    object Dao {
+        lateinit var dao: DAO
+            private set
+
+        fun init() {
+            dao = DependencyFactory.createDao(Database.databaseStock)
+        }
+    }
+
+    object Repositories {
+        lateinit var repository: Repository
+            private set
+
+        fun init() {
+            repository = DependencyFactory.createRepository(
+                Api.stockApi,
+                Dao.dao
+            )
+        }
+    }
+
+    object Mapper {
+        val mapper = Mappers()
     }
 }

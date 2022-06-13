@@ -7,54 +7,53 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stockprice.R
-import com.example.stockprice.Repository
 import com.example.stockprice.ResultState
-import com.example.stockprice.StockApi
-import com.example.stockprice.databinding.HomeScreenFragmentBinding
+import com.example.stockprice.databinding.AllListStockFragmentBinding
 import org.koin.android.ext.android.getKoin
 
-class HomeScreenFragment : Fragment(R.layout.home_screen_fragment) {
+class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
 
-    private lateinit var bindingHome: HomeScreenFragmentBinding
+    private lateinit var bindingAllStock: AllListStockFragmentBinding
     private val binding
-        get() = bindingHome
+        get() = bindingAllStock
 
     private lateinit var adapter: ListStocksAdapter
-    private lateinit var homeScreenViewModel: HomeScreenViewModel
+    private lateinit var allStockViewModel: AllLIstStockViewModel
 
     private fun initHomeScreenViewModel() {
         val factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeScreenViewModel(
+                return AllLIstStockViewModel(
+                    getKoin().get(),
                     getKoin().get()
                 ) as T
             }
         }
-        homeScreenViewModel = ViewModelProvider(this, factory).get(HomeScreenViewModel::class.java)
+        allStockViewModel = ViewModelProvider(this, factory).get(AllLIstStockViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindingHome = HomeScreenFragmentBinding.bind(view)
+        bindingAllStock = AllListStockFragmentBinding.bind(view)
         adapter = ListStocksAdapter(layoutInflater)
         initHomeScreenViewModel()
         binding.apply {
-            homeFragmentListStocks.adapter = adapter
-            homeFragmentListStocks.layoutManager = LinearLayoutManager(requireContext())
+            allListStocks.adapter = adapter
+            allListStocks.layoutManager = LinearLayoutManager(requireContext())
         }
-        homeScreenViewModel.stocks.observe(viewLifecycleOwner) {
+        allStockViewModel.stocks.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultState.Error -> {
                     binding.textError.text = "ERROR: " + it.throwable.message
-                    binding.homeFragmentListStocks.visibility = View.GONE
+                    binding.allListStocks.visibility = View.GONE
                 }
                 is ResultState.Loading -> {
                     binding.textError.text = "Loanding"
-                    binding.homeFragmentListStocks.visibility = View.GONE
+                    binding.allListStocks.visibility = View.GONE
                 }
                 is ResultState.Success -> {
                     binding.textError.visibility = View.GONE
-                    binding.homeFragmentListStocks.visibility = View.VISIBLE
+                    binding.allListStocks.visibility = View.VISIBLE
                     adapter.setListNote(it.data)
                 }
             }
