@@ -2,18 +2,24 @@ package com.example.stockprice
 
 import com.example.stockprice.modelapi.ListStockApiModel
 import retrofit2.Callback
+import java.util.concurrent.Executor
 
 class Repository(
     private val stockApi: StockApi,
-    private val dao: DAO
+    private val dao: DAO,
+    private val ioExecutor: Executor
 ) {
 
     fun getAllStock(callback: Callback<ListStockApiModel>) {
-        stockApi.getAllStocks().enqueue(callback)
+        ioExecutor.execute {
+            stockApi.getAllStocks().enqueue(callback)
+        }
     }
 
-    suspend fun addStockDatabase(list: List<StockModelDatabase>){
-        dao.addAllListStock(list)
+    fun addStockDatabase(list: List<StockModelDatabase>) {
+        ioExecutor.execute {
+            dao.addAllListStock(list)
+        }
     }
 
 }

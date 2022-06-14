@@ -46,28 +46,10 @@ class AllLIstStockViewModel(
                     val stockData = mappers.listStockModelData(responseBody)
                     repository.addStockDatabase(stockData)
                 }
-//                val result = response.body()?.let { responseBody ->
-//                    val stocklList = responseBody.data.map {
-//                        StockModelApi(
-//                            name = it.name,
-//                            symbol = it.symbol,
-//                            country = it.country,
-//                            currency = it.currency,
-//                            exchange = it.exchange,
-//                            mic_code = it.mic_code,
-//                            type = it.type
-//                        )
-//                    }
-//                    ResultState.Success(stocklList)
-//                } ?: ResultState.Error(RuntimeException("Response Body null"))
-//                _stokcs.value = result
-//                Log.d("Main", "HEllo $result")
             }
-
             override fun onFailure(call: Call<ListStockApiModel>, t: Throwable) {
                 _stokcs.value = ResultState.Error(t)
             }
-
         })
     }
 

@@ -8,6 +8,6 @@ interface DAO {
 
 
     @Insert
-    suspend fun addAllListStock(list: List<StockModelDatabase>)
+    fun addAllListStock(list: List<StockModelDatabase>)
 
 }

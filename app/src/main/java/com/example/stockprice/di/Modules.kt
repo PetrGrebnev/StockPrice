@@ -8,13 +8,21 @@ val stockApiModule = module {
     single { DependencyFactory.createHttpClient(get()) }
     single { DependencyFactory.createRetrofit(get()) }
     single { DependencyFactory.createApi(get()) }
-    single { DependencyFactory.createRepository(get(),get()) }
 }
 
 val databaseModule = module {
-    single { DependencyFactory.createDatabase(get())}
+    single { DependencyFactory.createDatabase(get()) }
     single { DependencyFactory.createDao(get()) }
-    single { Mappers() } //***
 }
 
-val appModules = listOf(stockApiModule, databaseModule)
+val mainModule = module {
+    single { Mappers() }
+    single { DependencyFactory.createIoExecutor()}
+    single { DependencyFactory.createRepository(get(), get(), get()) }
+}
+
+val appModules = listOf(
+    stockApiModule,
+    databaseModule,
+    mainModule
+)

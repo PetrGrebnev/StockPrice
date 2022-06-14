@@ -68,12 +68,17 @@ object DependencyStorage {
         fun init() {
             repository = DependencyFactory.createRepository(
                 Api.stockApi,
-                Dao.dao
+                Dao.dao,
+                Executor.ioExecutor
             )
         }
     }
 
     object Mapper {
         val mapper = Mappers()
+    }
+
+    object Executor {
+        val ioExecutor = DependencyFactory.createIoExecutor()
     }
 }
