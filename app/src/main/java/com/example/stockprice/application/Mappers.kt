@@ -1,5 +1,6 @@
-package com.example.stockprice
+package com.example.stockprice.application
 
+import com.example.stockprice.StockModelDatabase
 import com.example.stockprice.modelapi.ListStockApiModel
 import com.example.stockprice.modelapi.StockModelApi
 
@@ -15,18 +16,18 @@ class Mappers{
         type = stock.type
     )
 
-    fun stockModelApi(stock: StockModelApi) = StockModelApi(
-        country = stock.country,
-        currency = stock.currency,
-        exchange = stock.exchange,
-        mic_code = stock.mic_code,
-        name = stock.name,
-        symbol = stock.symbol,
-        type = stock.type
-    )
+//    fun stockModelApi(stock: StockModelApi) = StockModelApi(
+//        country = stock.country,
+//        currency = stock.currency,
+//        exchange = stock.exchange,
+//        mic_code = stock.mic_code,
+//        name = stock.name,
+//        symbol = stock.symbol,
+//        type = stock.type
+//    )
 
     fun listStockModelApi(list: ListStockApiModel) = list.data.map {
-        stockModelApi(it)
+         it
     }
 
     fun listStockModelData(list: ListStockApiModel) = list.data.map {

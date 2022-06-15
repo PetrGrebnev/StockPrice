@@ -1,10 +1,9 @@
 package com.example.stockprice.di
 
 import android.content.Context
-import androidx.room.RoomDatabase
 import com.example.stockprice.DAO
 import com.example.stockprice.DatabaseStock
-import com.example.stockprice.Mappers
+import com.example.stockprice.application.Mappers
 import com.example.stockprice.application.PermissionChecker
 import com.example.stockprice.Repository
 
@@ -69,7 +68,9 @@ object DependencyStorage {
             repository = DependencyFactory.createRepository(
                 Api.stockApi,
                 Dao.dao,
-                Executor.ioExecutor
+                Executor.ioExecutor,
+                Android.applicationContext,
+                Mapper.mapper
             )
         }
     }

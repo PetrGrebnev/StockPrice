@@ -8,6 +8,7 @@ import com.example.stockprice.DatabaseStock
 import com.example.stockprice.application.PermissionChecker
 import com.example.stockprice.Repository
 import com.example.stockprice.StockApi
+import com.example.stockprice.application.Mappers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,15 +41,20 @@ object DependencyFactory {
         return logging
     }
 
-    fun createRepository(stockApi: StockApi, dao: DAO, ioExecutor: Executor)
-    = Repository(stockApi, dao, ioExecutor)
+    fun createRepository(
+        stockApi: StockApi,
+        dao: DAO,
+        ioExecutor: Executor,
+        applicationContext: Context,
+        mappers: Mappers
+    ) = Repository(stockApi, dao, ioExecutor, applicationContext, mappers)
 
 
     fun createPermissionChecker(applicationContext: Context): PermissionChecker {
         return PermissionChecker(applicationContext)
     }
 
-    fun createDao(databaseStock: DatabaseStock): DAO{
+    fun createDao(databaseStock: DatabaseStock): DAO {
         return databaseStock.stockDatabaseDAO
     }
 
@@ -62,7 +68,7 @@ object DependencyFactory {
             .build()
     }
 
-    fun createIoExecutor(): Executor{
+    fun createIoExecutor(): Executor {
         return Executors.newFixedThreadPool(4)
     }
 }

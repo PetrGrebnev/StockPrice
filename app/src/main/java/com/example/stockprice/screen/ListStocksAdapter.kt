@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockprice.R
+import com.example.stockprice.StockModelDatabase
 import com.example.stockprice.modelapi.StockModelApi
 
 class ListStocksAdapter(
     private val layoutInflater: LayoutInflater
 ) : RecyclerView.Adapter<ListStocksAdapter.ViewHolder>(){
 
-    private var stocks: MutableList<StockModelApi> = mutableListOf()
+    private var stocks: MutableList<StockModelDatabase> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setListNote(stocks: List<StockModelApi>) {
+    fun setListNote(stocks: List<StockModelDatabase>) {
         this.stocks = stocks.toMutableList()
 
         notifyDataSetChanged()

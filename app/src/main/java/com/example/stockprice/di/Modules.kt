@@ -1,6 +1,6 @@
 package com.example.stockprice.di
 
-import com.example.stockprice.Mappers
+import com.example.stockprice.application.Mappers
 import org.koin.dsl.module
 
 val stockApiModule = module {
@@ -17,8 +17,8 @@ val databaseModule = module {
 
 val mainModule = module {
     single { Mappers() }
-    single { DependencyFactory.createIoExecutor()}
-    single { DependencyFactory.createRepository(get(), get(), get()) }
+    single { DependencyFactory.createIoExecutor() }
+    single { DependencyFactory.createRepository(get(), get(), get(), get(), get()) }
 }
 
 val appModules = listOf(
