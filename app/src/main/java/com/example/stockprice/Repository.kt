@@ -24,23 +24,9 @@ class Repository(
     private var stocksApi = MutableLiveData<ResultState<List<StockModelApi>>>()
     private var stocksDatabase: List<StockModelDatabase> = listOf()
 
-    init {
-        getAllStock()
-    }
+    suspend fun getAllStock(): List<StockModelDatabase> = dao.getAllStocks()
 
-    fun getAllStock(): List<StockModelDatabase> {
-        if (MyUtils.isInternetAvailable(appContext)) {
-            ioExecutor.execute {
-                getListStockApi()
-            }
-        }
-        ioExecutor.execute {
-            stocksDatabase = dao.getAllStocks()
-        }
-        return stocksDatabase
-    }
-
-    private fun getListStockApi() {
+    fun getListStockApi() {
         stockApi.getAllStocks().enqueue(object : Callback<ListStockApiModel> {
             @SuppressLint("NullSafeMutableLiveData")
             override fun onResponse(
@@ -55,7 +41,7 @@ class Repository(
                     val stock = mappers.listStockModelApi(responseBody)
                     stocksApi.value = ResultState.Success(stock)
                     val stockData = mappers.listStockModelData(responseBody)
-                    dao.addAllListStock(stockData)
+                    suspend{dao.addAllListStock(stockData)}
                 }
             }
 
