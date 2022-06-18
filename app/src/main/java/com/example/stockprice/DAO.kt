@@ -9,8 +9,8 @@ import androidx.room.Query
 interface DAO {
 
     @Insert
-    suspend fun addAllListStock(list: List<StockModelDatabase>)
+    fun addAllListStock(list: List<StockModelDatabase>)
 
     @Query("SELECT * FROM list_stock_table ")
-    suspend fun getAllStocks(): List<StockModelDatabase>
+    fun getAllStocks(): List<StockModelDatabase>
 }

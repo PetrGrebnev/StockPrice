@@ -41,23 +41,22 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
             allListStocks.adapter = adapter
             allListStocks.layoutManager = LinearLayoutManager(requireContext())
         }
-        allStockViewModel.stocks.observe(viewLifecycleOwner) {
-            adapter.setListNote(it)
-//            when (it) {
-//                is ResultState.Error -> {
-//                    binding.textError.text = "ERROR: " + it.throwable.message
-//                    binding.allListStocks.visibility = View.GONE
-//                }
-//                is ResultState.Loading -> {
-//                    binding.textError.text = "Loanding"
-//                    binding.allListStocks.visibility = View.GONE
-//                }
-//                is ResultState.Success -> {
-//                    binding.textError.visibility = View.GONE
-//                    binding.allListStocks.visibility = View.VISIBLE
-//                    adapter.setListNote(it.data)
-//                }
-//            }
+        allStockViewModel.loadListStock().observe(viewLifecycleOwner) {
+            when (it) {
+                is ResultState.Error -> {
+                    binding.textError.text = "ERROR: " + it.throwable.message
+                    binding.allListStocks.visibility = View.GONE
+                }
+                is ResultState.Loading -> {
+                    binding.textError.text = "Loanding"
+                    binding.allListStocks.visibility = View.GONE
+                }
+                is ResultState.Success -> {
+                    binding.textError.visibility = View.GONE
+                    binding.allListStocks.visibility = View.VISIBLE
+                    adapter.setListNote(it.data)
+                }
+            }
         }
     }
 }

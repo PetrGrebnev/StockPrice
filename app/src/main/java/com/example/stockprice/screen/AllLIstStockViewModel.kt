@@ -17,19 +17,19 @@ class AllLIstStockViewModel(
     private val mappers: Mappers
 ) : ViewModel() {
 
-    private var _stokcs = MutableLiveData<List<StockModelDatabase>>()
-    val stocks: LiveData<List<StockModelDatabase>> = _stokcs
+//    private var _stokcs = ResultState<List<StockModelDatabase>>()
+//    val stocks: ResultState<List<StockModelDatabase>> = _stokcs
 
-    init {
-        if (MyUtils.isInternetAvailable(DependencyStorage.Android.applicationContext)) {
-                viewModelScope.launch {
-                    repository.getListStockApi()
-                }
-        }
-        viewModelScope.launch {
-            _stokcs.value = repository.getAllStock()
-        }
-    }
+//    init {
+//        if (MyUtils.isInternetAvailable(DependencyStorage.Android.applicationContext)) {
+//            viewModelScope.launch {
+//                repository.getListStockApi()
+//            }
+//        }
+//    }
+
+    fun loadListStock(): LiveData<ResultState<List<StockModelDatabase>>> =
+        repository.getAllStock()
 
 //    private fun loadAllStocks() {
 //        _stokcs.value = ResultState.Loading()

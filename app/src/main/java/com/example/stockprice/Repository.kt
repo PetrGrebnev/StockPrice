@@ -2,6 +2,7 @@ package com.example.stockprice
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.stockprice.application.Mappers
 import com.example.stockprice.application.MyUtils
@@ -24,7 +25,18 @@ class Repository(
     private var stocksApi = MutableLiveData<ResultState<List<StockModelApi>>>()
     private var stocksDatabase: List<StockModelDatabase> = listOf()
 
-    suspend fun getAllStock(): List<StockModelDatabase> = dao.getAllStocks()
+    fun getAllStock(): LiveData<ResultState<List<StockModelDatabase>>> {
+        val result = MutableLiveData<ResultState<List<StockModelDatabase>>>(ResultState.Loading())
+        ioExecutor.execute {
+            val list = dao.getAllStocks()
+            if (list != null){
+                result.postValue(ResultState.Success(list))
+            } else {
+                result.postValue(ResultState.Error(RuntimeException("Is base null")))
+            }
+        }
+        return result
+    }
 
     fun getListStockApi() {
         stockApi.getAllStocks().enqueue(object : Callback<ListStockApiModel> {
@@ -41,7 +53,9 @@ class Repository(
                     val stock = mappers.listStockModelApi(responseBody)
                     stocksApi.value = ResultState.Success(stock)
                     val stockData = mappers.listStockModelData(responseBody)
-                    suspend{dao.addAllListStock(stockData)}
+                    ioExecutor.execute {
+                        dao.addAllListStock(stockData)
+                    }
                 }
             }
 
