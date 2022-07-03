@@ -1,4 +1,4 @@
-package com.example.stockprice.modelapi
+package com.example.stockprice.models.api
 
 data class StockModelApi(
     val country: String,

@@ -3,12 +3,12 @@ package com.example.stockprice.di
 import android.content.Context
 import androidx.databinding.ktx.BuildConfig
 import androidx.room.Room
-import com.example.stockprice.DAO
-import com.example.stockprice.DatabaseStock
+import com.example.stockprice.*
 import com.example.stockprice.application.PermissionChecker
-import com.example.stockprice.Repository
-import com.example.stockprice.StockApi
 import com.example.stockprice.application.Mappers
+import com.example.stockprice.database.DAODetailsStock
+import com.example.stockprice.database.DAOListStocks
+import com.example.stockprice.database.DatabaseStock
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -43,19 +43,25 @@ object DependencyFactory {
 
     fun createRepository(
         stockApi: StockApi,
-        dao: DAO,
+        daoListStocks: DAOListStocks,
+        daoDetailsStock: DAODetailsStock,
         ioExecutor: Executor,
-        applicationContext: Context,
         mappers: Mappers
-    ) = Repository(stockApi, dao, ioExecutor, applicationContext, mappers)
+    ) = Repository(stockApi, daoListStocks, daoDetailsStock, ioExecutor, mappers)
 
 
     fun createPermissionChecker(applicationContext: Context): PermissionChecker {
         return PermissionChecker(applicationContext)
     }
 
-    fun createDao(databaseStock: DatabaseStock): DAO {
-        return databaseStock.stockDatabaseDAO
+    fun createDaoList(
+        databaseStock: DatabaseStock
+    ): DAOListStocks {
+        return databaseStock.listStocksDAO
+    }
+
+    fun createDaoDetails(databaseStock: DatabaseStock): DAODetailsStock {
+        return databaseStock.detailsStockDAO
     }
 
     fun createDatabase(applicationContext: Context): DatabaseStock {

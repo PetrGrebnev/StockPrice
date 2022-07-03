@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Курс акций</string>
+
+    <!-- Details Fragment -->
+    <string name="company_name">Компания</string>
+    <string name="exchange">Биржа</string>
+    <string name="currency">Валюта</string>
+    <string name="date">Дата</string>
+    <string name="real_price">Real time price</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Тема</string>
+    <string name="displaying_header">отображение</string>
+    <string name="app_header">О приложение</string>
+
+    <!-- Theme Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="language_title">Язык</string>
+    <string name="dark_theme_title">Темная сторона</string>
+
+    <!-- Displaying Preferences -->
+    <string name="list_format_title">Отображение списка</string>
+
+    <!-- About app Preferences -->
+    <string name="about_app_title">GitHub</string>
+    <string name="data_intent">https://github.com/PetrGrebnev/StockPrice</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+</resources>

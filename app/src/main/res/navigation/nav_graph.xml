@@ -3,22 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeSearchFragment">
+    app:startDestination="@id/allListStockFragment">
 
     <fragment
-        android:id="@+id/homeSearchFragment"
-        android:name="com.example.stockprice.screen.HomeSearchFragment"
-        android:label="HomeSearchFragment" >
+        android:id="@+id/allListStockFragment"
+        android:name="com.example.stockprice.screen.liststock.AllListStockFragment"
+        android:label="Share Tracking"
+        tools:layout="@layout/all_list_stock_fragment">
         <action
-            android:id="@+id/action_homeSearchFragment_to_allListStockFragment"
+            android:id="@+id/action_allListStockFragment_to_detailsStockFragment"
+            app:destination="@id/detailsStockFragment" />
+        <action
+            android:id="@+id/action_allListStockFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsStockFragment"
+        android:name="com.example.stockprice.screen.details.DetailsStockFragment"
+        android:label="Share Tracking"
+        tools:layout="@layout/details_stokc_fragment">
+        <action
+            android:id="@+id/action_detailsStockFragment_to_allListStockFragment"
             app:destination="@id/allListStockFragment" />
     </fragment>
     <fragment
-        android:id="@+id/allListStockFragment"
-        android:name="com.example.stockprice.screen.AllListStockFragment"
-        android:label="AllListStockFragment" >
-        <action
-            android:id="@+id/action_allListStockFragment_to_homeSearchFragment"
-            app:destination="@id/homeSearchFragment" />
-    </fragment>
+        android:id="@+id/settingsFragment"
+        android:name="com.example.stockprice.screen.SettingsActivity.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

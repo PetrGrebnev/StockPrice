@@ -12,7 +12,8 @@ val stockApiModule = module {
 
 val databaseModule = module {
     single { DependencyFactory.createDatabase(get()) }
-    single { DependencyFactory.createDao(get()) }
+    single { DependencyFactory.createDaoList(get()) }
+    single { DependencyFactory.createDaoDetails(get()) }
 }
 
 val mainModule = module {

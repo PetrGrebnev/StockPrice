@@ -1,36 +1,32 @@
 package com.example.stockprice.application
 
-import com.example.stockprice.StockModelDatabase
-import com.example.stockprice.modelapi.ListStockApiModel
-import com.example.stockprice.modelapi.StockModelApi
+import com.example.stockprice.models.api.DetailsStockModelApi
+import com.example.stockprice.models.database.StockModelDatabase
+import com.example.stockprice.models.api.ListStockModelApi
+import com.example.stockprice.models.api.StockModelApi
+import com.example.stockprice.models.database.DetailsModelDatabase
 
-class Mappers{
+class Mappers {
 
     fun stockModelDatabase(stock: StockModelApi) = StockModelDatabase(
         country = stock.country,
+        exchange = stock.exchange,
+        mic_code = stock.mic_code,
+        nameStock = stock.name,
+        symbol = stock.symbol,
+    )
+
+    fun detailsModelsData(stock: DetailsStockModelApi, avatar: String?) = DetailsModelDatabase(
+        closePrice = stock.close,
         currency = stock.currency,
         exchange = stock.exchange,
         mic_code = stock.mic_code,
-        name = stock.name,
         symbol = stock.symbol,
-        type = stock.type
+        datetime = stock.datetime,
+        avatar = avatar
     )
 
-//    fun stockModelApi(stock: StockModelApi) = StockModelApi(
-//        country = stock.country,
-//        currency = stock.currency,
-//        exchange = stock.exchange,
-//        mic_code = stock.mic_code,
-//        name = stock.name,
-//        symbol = stock.symbol,
-//        type = stock.type
-//    )
-
-    fun listStockModelApi(list: ListStockApiModel) = list.data.map {
-         it
-    }
-
-    fun listStockModelData(list: ListStockApiModel) = list.data.map {
+    fun listStockModelData(list: ListStockModelApi) = list.data.map {
         stockModelDatabase(it)
     }
 }

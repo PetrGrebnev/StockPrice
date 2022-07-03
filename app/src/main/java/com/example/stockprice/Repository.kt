@@ -1,69 +1,64 @@
 package com.example.stockprice
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.stockprice.application.Mappers
-import com.example.stockprice.application.MyUtils
-import com.example.stockprice.modelapi.ListStockApiModel
-import com.example.stockprice.modelapi.StockModelApi
+import com.example.stockprice.application.ResultState
+import com.example.stockprice.database.DAODetailsStock
+import com.example.stockprice.database.DAOListStocks
+import com.example.stockprice.models.api.AvatarModelApi
+import com.example.stockprice.models.api.DetailsStockModelApi
+import com.example.stockprice.models.api.ListStockModelApi
+import com.example.stockprice.models.api.StockModelApi
+import com.example.stockprice.models.database.DetailsModelDatabase
+import com.example.stockprice.models.database.StockModelDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.RuntimeException
 import java.util.concurrent.Executor
+import kotlin.RuntimeException
 
 class Repository(
     private val stockApi: StockApi,
-    private val dao: DAO,
+    private val daoListStocks: DAOListStocks,
+    private val daoDetailsStock: DAODetailsStock,
     private val ioExecutor: Executor,
-    private val appContext: Context,
     private val mappers: Mappers
 ) {
 
-    private var stocksApi = MutableLiveData<ResultState<List<StockModelApi>>>()
-    private var stocksDatabase: List<StockModelDatabase> = listOf()
+    fun getAllStockASC(): List<StockModelDatabase> = daoListStocks.getAllStocksASC()
 
-    fun getAllStock(): LiveData<ResultState<List<StockModelDatabase>>> {
-        val result = MutableLiveData<ResultState<List<StockModelDatabase>>>(ResultState.Loading())
-        ioExecutor.execute {
-            val list = dao.getAllStocks()
-            if (list != null){
-                result.postValue(ResultState.Success(list))
-            } else {
-                result.postValue(ResultState.Error(RuntimeException("Is base null")))
-            }
-        }
-        return result
+    fun getAllStockDESC(): List<StockModelDatabase> = daoListStocks.getAllStockDESC()
+
+    fun searchStock(queryStock: String?) = daoListStocks.searchStock(queryStock)
+
+    fun getListStockApi(callback: Callback<ListStockModelApi>) {
+        stockApi.getAllStocks().enqueue(callback)
     }
 
-    fun getListStockApi() {
-        stockApi.getAllStocks().enqueue(object : Callback<ListStockApiModel> {
-            @SuppressLint("NullSafeMutableLiveData")
-            override fun onResponse(
-                call: Call<ListStockApiModel>,
-                response: Response<ListStockApiModel>
-            ) {
-                val responseBody = response.body()
-
-                if (responseBody == null) {
-                    stocksApi.value = ResultState.Error(RuntimeException("Response Body null"))
-                } else {
-                    val stock = mappers.listStockModelApi(responseBody)
-                    stocksApi.value = ResultState.Success(stock)
-                    val stockData = mappers.listStockModelData(responseBody)
-                    ioExecutor.execute {
-                        dao.addAllListStock(stockData)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ListStockApiModel>, t: Throwable) {
-                stocksApi.value = ResultState.Error(t)
-            }
-        })
+    fun insertStocks(listStock: List<StockModelDatabase>){
+        daoListStocks.addAllListStock(listStock)
     }
 
+    fun updateStocks(listStock: List<StockModelDatabase>){
+        daoListStocks.updateStocks(listStock)
+    }
 
+    fun getAvatarStock(symbol: String, callback: Callback<AvatarModelApi>) {
+        stockApi.getAvatar(symbol).enqueue(callback)
+    }
+
+    fun getDetails(symbol: String, callback: Callback<DetailsStockModelApi>) {
+        stockApi.getDetails(symbol).enqueue(callback)
+    }
+
+    fun insertDetailsStock(stock: DetailsModelDatabase){
+        daoDetailsStock.addDetailsStock(stock)
+    }
+
+    fun updateDetailsStock(stock: DetailsModelDatabase){
+        daoDetailsStock.updateDetailsStock(stock)
+    }
+
+    fun getDetailsStock(symbol: String) = daoDetailsStock.getStock(symbol)
 }

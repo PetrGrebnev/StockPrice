@@ -1,17 +1,19 @@
 package com.example.stockprice.di
 
 import android.content.Context
-import com.example.stockprice.DAO
-import com.example.stockprice.DatabaseStock
+import com.example.stockprice.database.DAOListStocks
+import com.example.stockprice.database.DatabaseStock
 import com.example.stockprice.application.Mappers
 import com.example.stockprice.application.PermissionChecker
 import com.example.stockprice.Repository
+import com.example.stockprice.database.DAODetailsStock
 
 object DependencyStorage {
     fun init(applicationContext: Context) {
         Android.init(applicationContext)
         Database.init(applicationContext)
-        Dao.init()
+        DaoListAllStocks.init()
+        DaoDetailsStock.init()
         Repositories.init()
     }
 
@@ -51,12 +53,21 @@ object DependencyStorage {
         }
     }
 
-    object Dao {
-        lateinit var dao: DAO
+    object DaoListAllStocks {
+        lateinit var daoListStocks: DAOListStocks
             private set
 
         fun init() {
-            dao = DependencyFactory.createDao(Database.databaseStock)
+            daoListStocks = DependencyFactory.createDaoList(Database.databaseStock)
+        }
+    }
+
+    object DaoDetailsStock {
+        lateinit var daoDetailsStock: DAODetailsStock
+            private set
+
+        fun init() {
+            daoDetailsStock = DependencyFactory.createDaoDetails(Database.databaseStock)
         }
     }
 
@@ -67,9 +78,9 @@ object DependencyStorage {
         fun init() {
             repository = DependencyFactory.createRepository(
                 Api.stockApi,
-                Dao.dao,
+                DaoListAllStocks.daoListStocks,
+                DaoDetailsStock.daoDetailsStock,
                 Executor.ioExecutor,
-                Android.applicationContext,
                 Mapper.mapper
             )
         }

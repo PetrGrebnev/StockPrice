@@ -1,4 +1,4 @@
-package com.example.stockprice
+package com.example.stockprice.application
 
 sealed class ResultState<T> {
     class Loading<T> : ResultState<T>()

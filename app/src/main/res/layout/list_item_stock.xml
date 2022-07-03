@@ -5,6 +5,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/item_list_style_background"
         android:orientation="vertical"
         tools:background="#FFFB03"
         tools:ignore="MissingConstraints">
@@ -13,16 +15,20 @@
             android:id="@+id/symbol_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/cardview_light_background"
             android:textSize="20dp"
-            android:textColor="@color/black"
             tools:text="MSFT" />
 
         <TextView
             android:id="@+id/full_name_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/cardview_light_background"
             android:textSize="30dp"
-            android:textColor="@color/black"
             tools:text="Microsoft Corporation" />
 
     </LinearLayout>

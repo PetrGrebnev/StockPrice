@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">StockPrice</string>
+
+    <!-- Details Fragment -->
+    <string name="company_name">Company name</string>
+    <string name="exchange">Exchange</string>
+    <string name="currency">Currency</string>
+    <string name="date">Date</string>
+    <string name="real_price">Real time price</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Theme</string>
+    <string name="displaying_header">Displaying</string>
+    <string name="app_header">About app</string>
+
+    <!-- Theme Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="language_title">Language</string>
+    <string name="dark_theme_title">Dark Side</string>
+
+    <!-- Displaying Preferences -->
+    <string name="list_format_title">List format</string>
+
+    <!-- About app Preferences -->
+    <string name="about_app_title">GitHub</string>
+    <string name="data_intent">https://github.com/PetrGrebnev/StockPrice</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
 </resources>

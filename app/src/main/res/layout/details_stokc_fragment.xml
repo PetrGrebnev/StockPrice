@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".screen.MainActivity">
+
+        <TextView
+            android:id="@+id/symbol_stock_details_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/symbol_text_details_fragment"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="Symbol" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="150dp">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_gravity="center"
+                android:rotation="0"
+                android:rotationX="0"
+                android:rotationY="0"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/company_name"
+                android:textColor="#5C5C5C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/name_details_fragment"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textAlignment="textEnd"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="Name" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/exchange"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/name_exchange_details_fragment"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textAlignment="textEnd"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="Name exchange" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/currency"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/name_currency_details_fragment"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textAlignment="textEnd"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="Name currency" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/date"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/datetime_details_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="DateTime" />
+
+            <TextView
+                android:id="@+id/price_close_details_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap,SpUsage"
+                tools:text="Price" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/real_price"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/real_price_details_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textColor="#8C8C8C"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage"
+                tools:text="Real price" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>
