@@ -18,8 +18,7 @@ val databaseModule = module {
 
 val mainModule = module {
     single { Mappers() }
-    single { DependencyFactory.createIoExecutor() }
-    single { DependencyFactory.createRepository(get(), get(), get(), get(), get()) }
+    single { DependencyFactory.createRepository(get(), get(), get())}
 }
 
 val appModules = listOf(

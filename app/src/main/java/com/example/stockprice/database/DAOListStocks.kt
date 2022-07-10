@@ -2,6 +2,7 @@ package com.example.stockprice.database
 
 import androidx.room.*
 import com.example.stockprice.models.database.StockModelDatabase
+import retrofit2.Response
 
 @Dao
 interface DAOListStocks {
@@ -11,6 +12,9 @@ interface DAOListStocks {
 
     @Update
     fun updateStocks(list: List<StockModelDatabase>)
+
+    @Query("SELECT * FROM list_stock_table LIMIT :nextPageNumber, :loadSize")
+    fun getAll(loadSize: Int, nextPageNumber: Int): List<StockModelDatabase>
 
     @Query("SELECT * FROM list_stock_table ORDER BY symbol ASC")
     fun getAllStocksASC(): List<StockModelDatabase>

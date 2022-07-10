@@ -8,5 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="light_green">#00E676</color>
     <color name="symbol_text_details_fragment">#8C8C8C</color>
-    <color name="text_details_fragment"></color>
+    <color name="text_details_fragment">#000000</color>
 </resources>

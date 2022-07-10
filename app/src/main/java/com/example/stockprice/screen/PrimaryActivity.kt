@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.stockprice.R
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class PrimaryActivity : AppCompatActivity() {
 
     private lateinit var controller: NavController
     private lateinit var appBar: AppBarConfiguration
@@ -21,10 +21,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         loadSettings()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_primary)
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
         controller = findNavController(R.id.fragment_container_view)
         appBar = AppBarConfiguration(controller.graph)
         setupActionBarWithNavController(controller, appBar)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return controller.navigateUp(appBar) || super.onSupportNavigateUp()
     }
 
     private fun loadSettings(){
@@ -52,10 +57,6 @@ class MainActivity : AppCompatActivity() {
         val config = Configuration()
         config.locale = locale
         baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return controller.navigateUp(appBar) || super.onSupportNavigateUp()
     }
 
     companion object {

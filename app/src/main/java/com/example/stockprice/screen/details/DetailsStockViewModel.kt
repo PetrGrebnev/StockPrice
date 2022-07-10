@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.stockprice.Repository
 import com.example.stockprice.application.Mappers
 import com.example.stockprice.application.MyUtils
@@ -11,6 +12,8 @@ import com.example.stockprice.application.ResultState
 import com.example.stockprice.models.api.AvatarModelApi
 import com.example.stockprice.models.api.DetailsStockModelApi
 import com.example.stockprice.models.database.DetailsModelDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +23,6 @@ import java.util.concurrent.Executor
 class DetailsStockViewModel(
     symbolStock: String,
     private val repository: Repository,
-    private val ioExecutor: Executor,
     private val mappers: Mappers
 ) : ViewModel() {
 
@@ -37,76 +39,55 @@ class DetailsStockViewModel(
         MyUtils.isInternetAvailable(KoinJavaComponent.getKoin().get())
 
     private fun getAvatarStock(symbolStock: String) {
-        repository.getAvatarStock(symbolStock, object : Callback<AvatarModelApi> {
-            override fun onResponse(
-                call: Call<AvatarModelApi>,
-                response: Response<AvatarModelApi>
-            ) {
-                val responseBody = response.body()
-                if (responseBody == null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            
+            if (internetConnection()) {
+                val response = repository.getAvatarStock(symbolStock)
+                if (response.isSuccessful) {
+                    avatarStock = response.body()!!.url
+                } else {
                     Toast.makeText(
                         KoinJavaComponent.getKoin().get(),
                         "Error response is body null",
                         Toast.LENGTH_SHORT
                     )
                         .show()
-                } else {
-                    avatarStock = responseBody.url
                 }
-            }
-
-            override fun onFailure(call: Call<AvatarModelApi>, t: Throwable) {
+            } else {
                 Toast.makeText(
                     KoinJavaComponent.getKoin().get(),
-                    "Error $t",
+                    "No internet connection",
                     Toast.LENGTH_SHORT
                 )
                     .show()
             }
-        })
+        }
     }
 
     private fun getStockDetails(symbolStock: String) {
-        _stock.postValue(ResultState.Loading())
-        if (internetConnection()) {
-            repository.getDetails(symbolStock, object : Callback<DetailsStockModelApi> {
-                override fun onResponse(
-                    call: Call<DetailsStockModelApi>,
-                    response: Response<DetailsStockModelApi>
-                ) {
-                    val responseBody = response.body()
-                    if (responseBody == null) {
-                        _stock.value = ResultState.Error(RuntimeException("Error"))
-                    } else {
-                        if (responseBody.symbol != null) {
-                            val stock = mappers.detailsModelsData(responseBody, avatarStock)
-                            _stock.value = ResultState.Success(stock)
-                            ioExecutor.execute {
-                                repository.insertDetailsStock(stock)
-                                repository.updateDetailsStock(stock)
-                            }
-                        } else {
-                            Toast.makeText(
-                                KoinJavaComponent.getKoin().get(),
-                                "Error response is body null",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
+        viewModelScope.launch(Dispatchers.IO) {
+            _stock.postValue(ResultState.Loading())
+            if (internetConnection()) {
+                val response = repository.getDetails(symbolStock)
+                if (response.isSuccessful) {
+                    val stock = mappers.detailsModelsData(
+                        response.body()!!, avatarStock
+                    )
+                    _stock.postValue(ResultState.Success(stock))
+                    viewModelScope.launch(Dispatchers.IO) {
+                        repository.insertDetailsStock(stock)
+                        repository.updateDetailsStock(stock)
                     }
-                }
-                override fun onFailure(call: Call<DetailsStockModelApi>, t: Throwable) {
+                } else {
+                    _stock.postValue(ResultState.Error(RuntimeException("Error")))
                     Toast.makeText(
                         KoinJavaComponent.getKoin().get(),
-                        "Error $t",
+                        "Error response is body null",
                         Toast.LENGTH_SHORT
                     )
                         .show()
                 }
-
-            })
-        } else {
-            ioExecutor.execute {
+            } else {
                 val stock = repository.getDetailsStock(symbolStock)
                 if (stock != null) {
                     _stock.postValue(ResultState.Success(stock))

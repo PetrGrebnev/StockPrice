@@ -1,7 +1,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory
+        android:icon="@drawable/ic_baseline_color_lens_24"
+        app:title="@string/messages_header">
 
         <SwitchPreferenceCompat
             app:key="dark_theme"
@@ -17,7 +19,8 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/displaying_header">
+    <PreferenceCategory app:title="@string/displaying_header"
+        android:icon="@drawable/ic_baseline_display_settings_24">
 
         <ListPreference
             app:defaultValue="List"
@@ -38,5 +41,4 @@
         </Preference>
 
     </PreferenceCategory>
-
 </PreferenceScreen>

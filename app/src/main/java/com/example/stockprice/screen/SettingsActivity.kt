@@ -5,10 +5,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.stockprice.R
@@ -32,11 +36,15 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             .registerOnSharedPreferenceChangeListener(this)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
+
     override fun onBackPressed() {
         PreferenceManager.getDefaultSharedPreferences(this@SettingsActivity)
             .unregisterOnSharedPreferenceChangeListener(this@SettingsActivity)
-        val intent = Intent(getKoin().get(), MainActivity::class.java)
-        startActivity(intent)
+        this.finish()
         super.onBackPressed()
     }
 

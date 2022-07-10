@@ -13,21 +13,23 @@
         <action
             android:id="@+id/action_allListStockFragment_to_detailsStockFragment"
             app:destination="@id/detailsStockFragment" />
-        <action
-            android:id="@+id/action_allListStockFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/detailsStockFragment"
         android:name="com.example.stockprice.screen.details.DetailsStockFragment"
-        android:label="Share Tracking"
+        android:label="Details Stock"
         tools:layout="@layout/details_stokc_fragment">
+        <argument
+            android:name="symbol"
+            app:argType="string" />
+        <argument
+            android:name="nameStock"
+            app:argType="string" />
         <action
             android:id="@+id/action_detailsStockFragment_to_allListStockFragment"
             app:destination="@id/allListStockFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.stockprice.screen.SettingsActivity.SettingsFragment"
-        android:label="SettingsFragment" />
+
 </navigation>

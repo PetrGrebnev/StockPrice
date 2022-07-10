@@ -5,8 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.stockprice.R
 import com.example.stockprice.application.ResultState
@@ -16,22 +18,24 @@ import kotlin.properties.Delegates
 
 class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
 
-    private lateinit var detailsStokcFragmentBinding: DetailsStokcFragmentBinding
+    private lateinit var detailsStockFragmentBinding: DetailsStokcFragmentBinding
     private val binding
-        get() = detailsStokcFragmentBinding
+        get() = detailsStockFragmentBinding
 
     private lateinit var detailsViewModel: DetailsStockViewModel
     private lateinit var controller: NavController
+
+    private val argSymbol: DetailsStockFragmentArgs by navArgs()
+    private val argName: DetailsStockFragmentArgs by navArgs()
 
     private var stockSymbol by Delegates.notNull<String>()
     private var nameStock by Delegates.notNull<String>()
 
     private fun initViewModel(stockSymbol: String) {
         val factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
                 return DetailsStockViewModel(
                     stockSymbol,
-                    getKoin().get(),
                     getKoin().get(),
                     getKoin().get()
                 ) as T
@@ -42,10 +46,10 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detailsStokcFragmentBinding = DetailsStokcFragmentBinding.bind(view)
+        detailsStockFragmentBinding = DetailsStokcFragmentBinding.bind(view)
         controller = Navigation.findNavController(view)
-        stockSymbol = arguments?.getString(ARGUMENT_SYMBOL_STOCK) ?: INVALID
-        nameStock = arguments?.getString(ARGUMENT_NAME_STOCK) ?: INVALID
+        stockSymbol = argSymbol.symbol
+        nameStock = argName.nameStock
         initViewModel(stockSymbol)
 
         detailsViewModel.stock.observe(viewLifecycleOwner) {

@@ -80,17 +80,7 @@ object DependencyStorage {
                 Api.stockApi,
                 DaoListAllStocks.daoListStocks,
                 DaoDetailsStock.daoDetailsStock,
-                Executor.ioExecutor,
-                Mapper.mapper
             )
         }
-    }
-
-    object Mapper {
-        val mapper = Mappers()
-    }
-
-    object Executor {
-        val ioExecutor = DependencyFactory.createIoExecutor()
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".screen.MainActivity">
+        tools:context=".screen.SplashActivity">
 
         <TextView
             android:id="@+id/symbol_stock_details_fragment"

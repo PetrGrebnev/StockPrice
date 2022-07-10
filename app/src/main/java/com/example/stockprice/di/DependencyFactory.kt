@@ -13,8 +13,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 object DependencyFactory {
 
@@ -45,9 +43,7 @@ object DependencyFactory {
         stockApi: StockApi,
         daoListStocks: DAOListStocks,
         daoDetailsStock: DAODetailsStock,
-        ioExecutor: Executor,
-        mappers: Mappers
-    ) = Repository(stockApi, daoListStocks, daoDetailsStock, ioExecutor, mappers)
+    ) = Repository(stockApi, daoListStocks, daoDetailsStock)
 
 
     fun createPermissionChecker(applicationContext: Context): PermissionChecker {
@@ -72,9 +68,5 @@ object DependencyFactory {
         )
             .fallbackToDestructiveMigration()
             .build()
-    }
-
-    fun createIoExecutor(): Executor {
-        return Executors.newFixedThreadPool(4)
     }
 }

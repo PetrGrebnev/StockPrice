@@ -14,6 +14,4 @@ interface DAODetailsStock {
 
     @Query("SELECT * FROM details_stock_table WHERE symbol=:symbol")
     fun getStock(symbol: String): DetailsModelDatabase
-
-
 }

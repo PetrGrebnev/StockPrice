@@ -18,12 +18,22 @@
         android:theme="@style/Theme.StockPrice"
         tools:targetApi="31">
         <activity
+            android:name=".screen.PrimaryActivity"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".screen.SettingsActivity"
             android:exported="false"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"/>
         <activity
-            android:name=".screen.MainActivity"
-            android:exported="true">
+            android:name=".screen.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
