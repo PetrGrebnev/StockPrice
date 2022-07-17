@@ -2,10 +2,13 @@ package com.example.stockprice.screen.liststock
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.LayoutDirection
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout.VERTICAL
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
@@ -16,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.stockprice.R
 import com.example.stockprice.SortOrder
 import com.example.stockprice.StockPagingAdapter
@@ -33,17 +37,16 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
     private val binding
         get() = bindingAllStock
 
-    private lateinit var adapter: ListStocksAdapter
     private lateinit var allStockViewModel: AllLIstStockViewModel
     private lateinit var sortOrder: SortOrder
-    private var liveDataStock: LiveData<ResultState<List<StockModelDatabase>>>? = null
-    private val observer: (ResultState<List<StockModelDatabase>>) -> Unit = {
-        when (it) {
-            is ResultState.Error -> binding.textError.text = "ERROR: " + it.throwable.message
-            is ResultState.Loading -> binding.textError.text = "Loading"
-            is ResultState.Success -> adapter.setListNote(it.data)
-        }
-    }
+//    private var liveDataStock: LiveData<ResultState<List<StockModelDatabase>>>? = null
+//    private val observer: (ResultState<List<StockModelDatabase>>) -> Unit = {
+//        when (it) {
+//            is ResultState.Error -> binding.textError.text = "ERROR: " + it.throwable.message
+//            is ResultState.Loading -> binding.textError.text = "Loading"
+//            is ResultState.Success -> adapter.setListNote(it.data)
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +62,18 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
                 ) as T
             }
         }
-        allStockViewModel = ViewModelProvider(this, factory).get(AllLIstStockViewModel::class.java)
+        allStockViewModel = ViewModelProvider(this, factory)[AllLIstStockViewModel::class.java]
+    }
+
+    private suspend fun sumbitlist(paging: PagingData<StockModelDatabase>) {
+        Log.d("PPPP", "Fr $paging}")
+        binding.allListStocks.run {
+            if (adapter == null) {
+                adapter = StockPagingAdapter()
+                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            }
+            (adapter as? StockPagingAdapter)?.submitData(paging)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,8 +81,8 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
         initHomeScreenViewModel()
         bindingAllStock = AllListStockFragmentBinding.bind(view)
         lifecycleScope.launch {
-            allStockViewModel.flow.collectLatest { paging ->
-                submitList(paging)
+            allStockViewModel.data.collectLatest {pagingData ->
+                sumbitlist(pagingData)
             }
         }
 
@@ -118,21 +132,21 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
 //    }
     }
 
-    private suspend fun submitList(paging: PagingData<StockModelDatabase>){
-        binding.allListStocks.run {
-            if (adapter == null){
-                adapter = StockPagingAdapter { symbol, nameStock ->
-                    findNavController().navigate(
-                        AllListStockFragmentDirections.actionAllListStockFragmentToDetailsStockFragment(
-                            symbol, nameStock
-                        )
-                    )
-                }
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-            (adapter as? StockPagingAdapter)?.submitData(paging)
-        }
-    }
+//    private suspend fun submitList(paging: PagingData<StockModelDatabase>){
+//        binding.allListStocks.run {
+//            if (adapter == null){
+//                adapter = StockPagingAdapter { symbol, nameStock ->
+//                    findNavController().navigate(
+//                        AllListStockFragmentDirections.actionAllListStockFragmentToDetailsStockFragment(
+//                            symbol, nameStock
+//                        )
+//                    )
+//                }
+//                layoutManager = LinearLayoutManager(requireContext())
+//            }
+//            (adapter as? StockPagingAdapter)?.submitData(paging)
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)

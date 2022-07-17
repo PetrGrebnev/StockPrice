@@ -11,5 +11,5 @@ data class StockModelDatabase(
     @ColumnInfo(name = "mic_code") val mic_code: String,
     @ColumnInfo(name = "name") val nameStock: String,
     @PrimaryKey
-    @ColumnInfo(name = "symbol") val symbol: String
+    @ColumnInfo(name = "symbol") val symbol: String,
 )

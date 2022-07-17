@@ -28,7 +28,8 @@
                 android:id="@+id/all_list_stocks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:background="#F36E6E">
+                tools:background="#F36E6E"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
             </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>

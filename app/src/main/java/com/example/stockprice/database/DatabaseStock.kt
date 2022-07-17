@@ -9,7 +9,7 @@ import com.example.stockprice.models.database.StockModelDatabase
     entities = [
         StockModelDatabase::class,
         DetailsModelDatabase::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class DatabaseStock : RoomDatabase() {

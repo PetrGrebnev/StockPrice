@@ -52,6 +52,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.room:room-paging:$roomVersion"
 
     //Koin
     implementation "io.insert-koin:koin-core:$koinVersion"
