@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.RuntimeException
 import androidx.paging.*
-import com.example.stockprice.DataSourceStock
+
 
 
 class AllLIstStockViewModel(
@@ -42,13 +42,12 @@ class AllLIstStockViewModel(
 
     val data = Pager(
         PagingConfig(
-            pageSize = 20,
+            pageSize = 25,
             enablePlaceholders = false,
-            initialLoadSize = 20
+            initialLoadSize = 50
         ),
     ) {
-        Log.d("PPPP", "VM")
-        DataSourceStock(repository)
+        repository.getAll()
     }.flow.cachedIn(viewModelScope)
 
 //    val allStocks: Flow<PagingData<StockListItem>> = Pager(
@@ -90,13 +89,15 @@ class AllLIstStockViewModel(
     fun loadingFromApi() {
         viewModelScope.launch(Dispatchers.IO) {
             _stocks.postValue(ResultState.Loading())
+            var id = 0
             if (internetConnection()) {
                 val response = repository.getListStockApi()
                 if (response.body() == null) {
                     _stocks.value = ResultState.Error(RuntimeException("Error"))
                     return@launch
                 } else {
-                    val stockData = mappers.listStockModelData(response.body()!!)
+                    id++
+                    val stockData = mappers.listStockModelData(response.body()!!, id)
                     _stocks.postValue(ResultState.Success(stockData))
                     viewModelScope.launch(Dispatchers.IO) {
                         repository.insertStocks(stockData)

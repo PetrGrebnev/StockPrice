@@ -8,7 +8,8 @@ import com.example.stockprice.models.database.DetailsModelDatabase
 
 class Mappers {
 
-    fun stockModelDatabase(stock: StockModelApi) = StockModelDatabase(
+    fun stockModelDatabase(stock: StockModelApi, id: Int) = StockModelDatabase(
+        id = id,
         country = stock.country,
         exchange = stock.exchange,
         mic_code = stock.mic_code,
@@ -26,7 +27,7 @@ class Mappers {
         avatar = avatar
     )
 
-    fun listStockModelData(list: ListStockModelApi) = list.data.map {
-        stockModelDatabase(it)
+    fun listStockModelData(list: ListStockModelApi, id:Int) = list.data.map {
+        stockModelDatabase(it, id)
     }
 }

@@ -6,10 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "list_stock_table")
 data class StockModelDatabase(
+    @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "country") val country: String,
     @ColumnInfo(name = "exchange") val exchange: String,
     @ColumnInfo(name = "mic_code") val mic_code: String,
     @ColumnInfo(name = "name") val nameStock: String,
     @PrimaryKey
-    @ColumnInfo(name = "symbol") val symbol: String,
+    @ColumnInfo(name = "symbol") val symbol: String
 )

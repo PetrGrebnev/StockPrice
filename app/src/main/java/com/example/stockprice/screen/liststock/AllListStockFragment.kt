@@ -2,28 +2,21 @@ package com.example.stockprice.screen.liststock
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.LayoutDirection
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout.VERTICAL
-import android.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockprice.R
 import com.example.stockprice.SortOrder
 import com.example.stockprice.StockPagingAdapter
-import com.example.stockprice.application.ResultState
 import com.example.stockprice.databinding.AllListStockFragmentBinding
 import com.example.stockprice.models.database.StockModelDatabase
 import com.example.stockprice.screen.SettingsActivity
@@ -39,6 +32,7 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
 
     private lateinit var allStockViewModel: AllLIstStockViewModel
     private lateinit var sortOrder: SortOrder
+    private lateinit var adapter: StockPagingAdapter
 //    private var liveDataStock: LiveData<ResultState<List<StockModelDatabase>>>? = null
 //    private val observer: (ResultState<List<StockModelDatabase>>) -> Unit = {
 //        when (it) {
@@ -78,10 +72,12 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Fragment", "Start")
         initHomeScreenViewModel()
         bindingAllStock = AllListStockFragmentBinding.bind(view)
         lifecycleScope.launch {
             allStockViewModel.data.collectLatest {pagingData ->
+                Log.d("Fragment", "redy $pagingData")
                 sumbitlist(pagingData)
             }
         }

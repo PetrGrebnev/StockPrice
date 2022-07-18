@@ -1,6 +1,7 @@
 package com.example.stockprice
 
 import android.util.Log
+import androidx.paging.PagingSource
 import com.example.stockprice.database.DAODetailsStock
 import com.example.stockprice.database.DAOListStocks
 import com.example.stockprice.models.database.DetailsModelDatabase
@@ -14,10 +15,9 @@ class Repository(
 
     suspend fun getAllStockASC(): List<StockModelDatabase> = daoListStocks.getAllStocksASC()
 
-    fun getAll(limit: Int, offset: Int): List<StockModelDatabase> {
-        val list = daoListStocks.getAll(limit, offset)
-        Log.d("PPPP", "Rp $list")
-        return list
+    fun getAll(): PagingSource<Int, StockModelDatabase> {
+        Log.d ("Fragment", "repos")
+        return daoListStocks.getAll()
     }
 
     suspend fun getAllStockDESC(): List<StockModelDatabase> = daoListStocks.getAllStockDESC()

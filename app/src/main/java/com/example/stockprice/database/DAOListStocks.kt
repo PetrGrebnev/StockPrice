@@ -1,5 +1,6 @@
 package com.example.stockprice.database
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.stockprice.models.database.StockModelDatabase
 
@@ -12,8 +13,8 @@ interface DAOListStocks {
     @Update
     fun updateStocks(list: List<StockModelDatabase>)
 
-    @Query("SELECT * FROM list_stock_table ORDER BY symbol ASC LIMIT :limit OFFSET :offset")
-    fun getAll(limit: Int, offset: Int): List<StockModelDatabase>
+    @Query("SELECT * FROM list_stock_table ORDER BY symbol ASC")
+    fun getAll(): PagingSource<Int, StockModelDatabase>
 
     @Query("SELECT * FROM list_stock_table ORDER BY symbol ASC")
     fun getAllStocksASC(): List<StockModelDatabase>

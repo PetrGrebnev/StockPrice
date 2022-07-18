@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface StockApi {
 
-    @GET("stocks?exchange=NASDAQ")
+    @GET("stocks")
     suspend fun getAllStocks(): Response<ListStockModelApi>
 
     @GET("logo?$ACCESS_KEY")
