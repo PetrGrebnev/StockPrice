@@ -1,9 +1,9 @@
-package com.example.stockprice
+package com.example.stockprice.model
 
 import com.example.stockprice.database.DAODetailsStock
 import com.example.stockprice.database.DAOListStocks
-import com.example.stockprice.models.database.DetailsModelDatabase
-import com.example.stockprice.models.database.StockModelDatabase
+import com.example.stockprice.datamodels.database.DetailsModelDatabase
+import com.example.stockprice.datamodels.database.StockModelDatabase
 
 class Repository(
     private val stockApi: StockApi,
@@ -12,10 +12,6 @@ class Repository(
 ) {
 
     suspend fun getAllStockASC(): List<StockModelDatabase> = daoListStocks.getAllStocksASC()
-
-    fun getAll(
-        loadSize: Int, nextPageNumber: Int
-    ) = daoListStocks.getAll(loadSize, nextPageNumber)
 
     suspend fun getAllStockDESC(): List<StockModelDatabase> = daoListStocks.getAllStockDESC()
 
@@ -27,14 +23,9 @@ class Repository(
         daoListStocks.addAllListStock(listStock)
     }
 
-    suspend fun updateStocks(listStock: List<StockModelDatabase>) {
-        daoListStocks.updateStocks(listStock)
-    }
-
     suspend fun getAvatarStock(symbol: String) = stockApi.getAvatar(symbol)
 
     suspend fun getDetails(symbol: String) = stockApi.getDetails(symbol)
-
 
     suspend fun insertDetailsStock(stock: DetailsModelDatabase) {
         daoDetailsStock.addDetailsStock(stock)

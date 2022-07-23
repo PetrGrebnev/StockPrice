@@ -1,14 +1,14 @@
 package com.example.stockprice.di
 
 import android.content.Context
-import androidx.databinding.ktx.BuildConfig
+import android.util.Log
 import androidx.room.Room
-import com.example.stockprice.*
 import com.example.stockprice.application.PermissionChecker
-import com.example.stockprice.application.Mappers
 import com.example.stockprice.database.DAODetailsStock
 import com.example.stockprice.database.DAOListStocks
 import com.example.stockprice.database.DatabaseStock
+import com.example.stockprice.model.Repository
+import com.example.stockprice.model.StockApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,23 +18,19 @@ object DependencyFactory {
 
     fun createApi(retrofit: Retrofit) = retrofit.create(StockApi::class.java)
 
-    fun createRetrofit(client: OkHttpClient) = Retrofit.Builder()
+    fun createRetrofit(logger: HttpLoggingInterceptor) = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(StockApi.BASE_URL)
-        .client(client)
+        .client(OkHttpClient.Builder().apply {
+            addInterceptor(logger)
+        }
+            .build())
         .build()
 
-    fun createHttpClient(logger: HttpLoggingInterceptor): OkHttpClient {
-        val httpClient = OkHttpClient.Builder()
-
-        if (BuildConfig.DEBUG) {
-            httpClient.addInterceptor(logger)
-        }
-        return httpClient.build()
-    }
-
     fun createLoggingInterceptor(): HttpLoggingInterceptor {
-        val logging = HttpLoggingInterceptor()
+        val logging = HttpLoggingInterceptor {
+            Log.d("OkHHTPClient", it)
+        }
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         return logging
     }

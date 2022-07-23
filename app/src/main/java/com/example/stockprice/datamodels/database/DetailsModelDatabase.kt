@@ -1,4 +1,4 @@
-package com.example.stockprice.models.database
+package com.example.stockprice.datamodels.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

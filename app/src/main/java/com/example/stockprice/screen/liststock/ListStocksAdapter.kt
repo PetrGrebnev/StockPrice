@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.stockprice.R
-import com.example.stockprice.models.database.StockModelDatabase
+import com.example.stockprice.datamodels.database.StockModelDatabase
 
 class ListStocksAdapter(
     private val layoutInflater: LayoutInflater,
-    private val onClick: OnStockClickListener? = null
+    private val onClick: (symbol: String, nameStock: String) -> Unit
 ) : RecyclerView.Adapter<ListStocksAdapter.ViewHolder>(){
 
     private var stocks: MutableList<StockModelDatabase> = mutableListOf()
@@ -23,19 +23,10 @@ class ListStocksAdapter(
         notifyDataSetChanged()
     }
 
-    interface OnStockClickListener {
-        fun onStockClick(stock: StockModelDatabase)
-    }
-
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val itemSymbol: TextView = itemView.findViewById(R.id.symbol_stock)
         val itemFullName: TextView = itemView.findViewById(R.id.full_name_stock)
 
-        init{
-            itemView.setOnClickListener{
-                onClick?.onStockClick(stocks[adapterPosition])
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -52,6 +43,9 @@ class ListStocksAdapter(
         holder.apply {
             itemSymbol.text = item.symbol
             itemFullName.text = item.nameStock
+        }
+        holder.itemView.setOnClickListener{
+            onClick(item.symbol, item.nameStock)
         }
     }
 

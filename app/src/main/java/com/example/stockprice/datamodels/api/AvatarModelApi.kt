@@ -1,4 +1,4 @@
-package com.example.stockprice.models.api
+package com.example.stockprice.datamodels.api
 
 data class AvatarModelApi(
     val meta: Meta,

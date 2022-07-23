@@ -3,9 +3,8 @@ package com.example.stockprice.di
 import android.content.Context
 import com.example.stockprice.database.DAOListStocks
 import com.example.stockprice.database.DatabaseStock
-import com.example.stockprice.application.Mappers
 import com.example.stockprice.application.PermissionChecker
-import com.example.stockprice.Repository
+import com.example.stockprice.model.Repository
 import com.example.stockprice.database.DAODetailsStock
 
 object DependencyStorage {
@@ -31,9 +30,8 @@ object DependencyStorage {
     }
 
     object Network {
-        val loggingInterceptor = DependencyFactory.createLoggingInterceptor()
-        val httpClient = DependencyFactory.createHttpClient(loggingInterceptor)
-        val retrofit = DependencyFactory.createRetrofit(httpClient)
+        private val loggingInterceptor = DependencyFactory.createLoggingInterceptor()
+        val retrofit = DependencyFactory.createRetrofit(loggingInterceptor)
     }
 
     object Api {

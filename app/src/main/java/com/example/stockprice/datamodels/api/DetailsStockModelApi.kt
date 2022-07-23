@@ -1,6 +1,8 @@
-package com.example.stockprice.models.api
+package com.example.stockprice.datamodels.api
 
 data class DetailsStockModelApi(
+    val code: Int?,
+    val message: String?,
     val close: Double,
     val currency: String,
     val datetime: String,

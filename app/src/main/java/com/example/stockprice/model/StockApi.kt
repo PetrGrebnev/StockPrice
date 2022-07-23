@@ -1,9 +1,9 @@
-package com.example.stockprice
+package com.example.stockprice.model
 
 
-import com.example.stockprice.models.api.AvatarModelApi
-import com.example.stockprice.models.api.ListStockModelApi
-import com.example.stockprice.models.api.DetailsStockModelApi
+import com.example.stockprice.datamodels.api.AvatarModelApi
+import com.example.stockprice.datamodels.api.ListStockModelApi
+import com.example.stockprice.datamodels.api.DetailsStockModelApi
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

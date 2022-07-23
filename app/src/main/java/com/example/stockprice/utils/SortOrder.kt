@@ -1,4 +1,4 @@
-package com.example.stockprice
+package com.example.stockprice.utils
 
 enum class SortOrder {
     ASC,

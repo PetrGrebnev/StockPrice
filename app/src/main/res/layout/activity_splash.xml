@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.SplashActivity">
+        tools:context=".screen.activity.SplashActivity">
 
         <ImageView
             android:id="@+id/logo_splash"

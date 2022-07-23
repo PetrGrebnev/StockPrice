@@ -1,8 +1,7 @@
 package com.example.stockprice.database
 
 import androidx.room.*
-import com.example.stockprice.models.database.StockModelDatabase
-import retrofit2.Response
+import com.example.stockprice.datamodels.database.StockModelDatabase
 
 @Dao
 interface DAOListStocks {

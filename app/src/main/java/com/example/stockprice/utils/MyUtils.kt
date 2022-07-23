@@ -1,4 +1,4 @@
-package com.example.stockprice.application
+package com.example.stockprice.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

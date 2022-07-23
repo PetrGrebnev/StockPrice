@@ -1,4 +1,4 @@
-package com.example.stockprice.screen
+package com.example.stockprice.screen.activity
 
 import android.app.Activity
 import android.content.res.Configuration

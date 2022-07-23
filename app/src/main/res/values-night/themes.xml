@@ -2,18 +2,33 @@
     <!-- Base application theme. -->
     <style name="Theme.StockPrice" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/green_600</item>
+        <item name="colorPrimary">@color/green_900</item>
+        <item name="colorPrimaryVariant">@color/green_800</item>
         <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Primary text color. -->
-
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="StyleText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ItemStock">
+        <item name="android:background">@color/green_900</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="DetailsFragmentTextInfo">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@color/green_900</item>
+    </style>
+
+    <!-- SplashScreenTheme. -->
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="colorPrimary">@color/green_800</item>
+        <item name="colorPrimaryVariant">@color/green_900</item>
+        <item name="android:statusBarColor" tools:ignore="ObsoleteSdkInt" tools:targetApi="l">
+            @color/green_900
+        </item>
     </style>
 </resources>

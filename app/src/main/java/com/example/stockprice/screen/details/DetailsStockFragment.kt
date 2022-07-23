@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.stockprice.R
-import com.example.stockprice.application.ResultState
+import com.example.stockprice.utils.ResultState
 import com.example.stockprice.databinding.DetailsStokcFragmentBinding
 import org.koin.android.ext.android.getKoin
 import kotlin.properties.Delegates
@@ -37,7 +37,6 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
                 return DetailsStockViewModel(
                     stockSymbol,
                     getKoin().get(),
-                    getKoin().get()
                 ) as T
             }
         }
@@ -54,10 +53,19 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
 
         detailsViewModel.stock.observe(viewLifecycleOwner) {
             when (it) {
-                is ResultState.Error -> binding.symbolStockDetailsFragment.text =
-                    "ERROR " + it.throwable.message
-                is ResultState.Loading -> binding.symbolStockDetailsFragment.text = "Loading"
+                is ResultState.Error -> {
+                    binding.progressBarDetailsStockFragment.visibility = View.GONE
+                    binding.symbolStockDetailsFragment.text =
+                        "ERROR " + it.throwable.message
+                    binding.nameCurrencyDetailsFragment.visibility = View.GONE
+                    binding.datetimeDetailsFragment.visibility = View.GONE
+                    binding.nameExchangeDetailsFragment.visibility = View.GONE
+                    binding.priceCloseDetailsFragment.visibility = View.GONE
+                    binding.nameDetailsFragment.text = nameStock
+                }
+                is ResultState.Loading -> binding.progressBarDetailsStockFragment.visibility = View.VISIBLE
                 is ResultState.Success -> {
+                    binding.progressBarDetailsStockFragment.visibility = View.GONE
                     val result = it.data
                     binding.symbolStockDetailsFragment.text = stockSymbol
                     binding.nameCurrencyDetailsFragment.text = result.currency
@@ -65,18 +73,16 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
                     binding.nameExchangeDetailsFragment.text = result.exchange
                     binding.priceCloseDetailsFragment.text = result.closePrice.toString()
                     binding.nameDetailsFragment.text = nameStock
-                    Glide
-                        .with(view)
-                        .load(result.avatar)
-                        .into(binding.avatar)
+                    if (result.avatar == null){
+                        binding.avatar.visibility = View.GONE
+                    } else {
+                        Glide
+                            .with(view)
+                            .load(result.avatar)
+                            .into(binding.avatar)
+                    }
                 }
             }
         }
-    }
-
-    companion object {
-        private const val INVALID = ""
-        private const val ARGUMENT_SYMBOL_STOCK = "ARGUMENT_SYMBOL_STOCK"
-        private const val ARGUMENT_NAME_STOCK = "ARGUMENT_NAME_STOCK"
     }
 }

@@ -2,8 +2,8 @@ package com.example.stockprice.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.stockprice.models.database.DetailsModelDatabase
-import com.example.stockprice.models.database.StockModelDatabase
+import com.example.stockprice.datamodels.database.DetailsModelDatabase
+import com.example.stockprice.datamodels.database.StockModelDatabase
 
 @Database(
     entities = [

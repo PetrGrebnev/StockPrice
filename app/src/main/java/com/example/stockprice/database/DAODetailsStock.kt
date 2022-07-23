@@ -1,7 +1,7 @@
 package com.example.stockprice.database
 
 import androidx.room.*
-import com.example.stockprice.models.database.DetailsModelDatabase
+import com.example.stockprice.datamodels.database.DetailsModelDatabase
 
 @Dao
 interface DAODetailsStock {

@@ -19,19 +19,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/displaying_header"
-        android:icon="@drawable/ic_baseline_display_settings_24">
-
-        <ListPreference
-            app:defaultValue="List"
-            app:entries="@array/displaying_entries"
-            app:entryValues="@array/displaying_values"
-            app:key="list_format"
-            app:title="@string/list_format_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="@string/app_header">
 
         <Preference app:title="@string/about_app_title">
