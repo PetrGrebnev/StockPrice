@@ -43,6 +43,7 @@ dependencies {
 
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
+
     def retrofitVersion = '2.9.0'
     def koinVersion = '3.2.0'
     def roomVersion = '2.4.2'
@@ -64,7 +65,6 @@ dependencies {
 
     //Utils
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
-    implementation "androidx.paging:paging-runtime:3.1.1"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
