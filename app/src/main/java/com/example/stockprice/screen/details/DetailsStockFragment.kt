@@ -14,7 +14,6 @@ import com.example.stockprice.R
 import com.example.stockprice.utils.ResultState
 import com.example.stockprice.databinding.DetailsStokcFragmentBinding
 import org.koin.android.ext.android.getKoin
-import kotlin.properties.Delegates
 
 class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
 
@@ -25,11 +24,7 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
     private lateinit var detailsViewModel: DetailsStockViewModel
     private lateinit var controller: NavController
 
-    private val argSymbol: DetailsStockFragmentArgs by navArgs()
-    private val argName: DetailsStockFragmentArgs by navArgs()
-
-    private var stockSymbol by Delegates.notNull<String>()
-    private var nameStock by Delegates.notNull<String>()
+    private val args: DetailsStockFragmentArgs by navArgs()
 
     private fun initViewModel(stockSymbol: String) {
         val factory = object : ViewModelProvider.Factory {
@@ -47,8 +42,8 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
         super.onViewCreated(view, savedInstanceState)
         detailsStockFragmentBinding = DetailsStokcFragmentBinding.bind(view)
         controller = Navigation.findNavController(view)
-        stockSymbol = argSymbol.symbol
-        nameStock = argName.nameStock
+        val stockSymbol = args.symbol
+        val nameStock = args.nameStock
         initViewModel(stockSymbol)
 
         detailsViewModel.stock.observe(viewLifecycleOwner) {
