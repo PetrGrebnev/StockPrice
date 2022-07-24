@@ -159,11 +159,30 @@
                 android:id="@+id/datetime_details_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
+                android:textAlignment="textEnd"
                 android:textSize="@dimen/size_text_details"
                 android:textStyle="bold"
                 tools:ignore="SpUsage"
                 tools:text="DateTime" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:theme="@style/DetailsFragmentTextInfo">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/end_price"
+                android:textSize="@dimen/size_text_details"
+                android:textStyle="bold"
+                tools:ignore="SpUsage" />
 
             <TextView
                 android:id="@+id/price_close_details_fragment"
@@ -174,7 +193,6 @@
                 android:textStyle="bold"
                 tools:ignore="RelativeOverlap,SpUsage"
                 tools:text="Price" />
-
         </RelativeLayout>
 
     </LinearLayout>

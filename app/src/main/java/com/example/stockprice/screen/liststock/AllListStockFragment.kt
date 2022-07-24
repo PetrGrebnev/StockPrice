@@ -63,6 +63,8 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
         adapterCreate()
 
         binding.apply {
+            binding.allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
+            binding.allListStocks.adapter = adapter
             refresh.setOnRefreshListener {
                 allStockViewModel.setSortOrder(SortOrder.ASC)
                 refresh.isRefreshing = false
@@ -78,10 +80,8 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
                 )
             )
         }
-
         binding.allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
         binding.allListStocks.adapter = adapter
-
         observeStocks(adapter)
     }
 

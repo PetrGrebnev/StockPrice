@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Курс акций</string>
+    <string name="list_fragment">Список акций</string>
+    <string name="details_fragmnet">Детали акции</string>
 
     <!-- Details Fragment -->
     <string name="company_name">Компания</string>
     <string name="exchange">Биржа</string>
     <string name="currency">Валюта</string>
     <string name="date">Дата</string>
-    <string name="real_price">Real time price</string>
+    <string name="end_price">Цена закртия</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Тема</string>
@@ -25,5 +27,5 @@
     <!-- About app Preferences -->
     <string name="about_app_title">GitHub</string>
     <string name="data_intent">https://github.com/PetrGrebnev/StockPrice</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Настройки</string>
 </resources>

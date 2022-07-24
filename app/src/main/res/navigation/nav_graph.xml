@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/allListStockFragment"
         android:name="com.example.stockprice.screen.liststock.AllListStockFragment"
-        android:label="Share Tracking"
+        android:label="@string/list_fragment"
         tools:layout="@layout/all_list_stock_fragment">
         <action
             android:id="@+id/action_allListStockFragment_to_detailsStockFragment"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/detailsStockFragment"
         android:name="com.example.stockprice.screen.details.DetailsStockFragment"
-        android:label="Details Stock"
+        android:label="@string/details_fragmnet"
         tools:layout="@layout/details_stokc_fragment">
         <argument
             android:name="symbol"
