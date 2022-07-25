@@ -1,6 +1,7 @@
 package com.example.stockprice.screen.activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.stockprice.R
+import org.koin.android.ext.android.getKoin
 import java.util.*
 
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -38,6 +40,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         PreferenceManager.getDefaultSharedPreferences(this@SettingsActivity)
             .unregisterOnSharedPreferenceChangeListener(this@SettingsActivity)
         this.finish()
+        val intent = Intent(getKoin().get(), PrimaryActivity::class.java)
+        startActivity(intent)
         super.onBackPressed()
     }
 

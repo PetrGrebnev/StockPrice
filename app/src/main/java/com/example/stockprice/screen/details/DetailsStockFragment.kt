@@ -49,32 +49,35 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
         detailsViewModel.stock.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultState.Error -> {
-                    binding.progressBarDetailsStockFragment.visibility = View.GONE
-                    binding.symbolStockDetailsFragment.text =
-                        "ERROR " + it.throwable.message
-                    binding.nameCurrencyDetailsFragment.visibility = View.GONE
-                    binding.datetimeDetailsFragment.visibility = View.GONE
-                    binding.nameExchangeDetailsFragment.visibility = View.GONE
-                    binding.priceCloseDetailsFragment.visibility = View.GONE
-                    binding.nameDetailsFragment.text = nameStock
+                    binding.apply {
+                        progressBarDetailsStockFragment.visibility = View.GONE
+                        symbolStockDetailsFragment.text = getString(R.string.error_details)
+                        nameCurrencyDetailsFragment.visibility = View.GONE
+                        datetimeDetailsFragment.visibility = View.GONE
+                        nameExchangeDetailsFragment.visibility = View.GONE
+                        priceCloseDetailsFragment.visibility = View.GONE
+                        nameDetailsFragment.text = nameStock
+                    }
                 }
                 is ResultState.Loading -> binding.progressBarDetailsStockFragment.visibility = View.VISIBLE
                 is ResultState.Success -> {
-                    binding.progressBarDetailsStockFragment.visibility = View.GONE
-                    val result = it.data
-                    binding.symbolStockDetailsFragment.text = stockSymbol
-                    binding.nameCurrencyDetailsFragment.text = result.currency
-                    binding.datetimeDetailsFragment.text = result.datetime
-                    binding.nameExchangeDetailsFragment.text = result.exchange
-                    binding.priceCloseDetailsFragment.text = result.closePrice.toString()
-                    binding.nameDetailsFragment.text = nameStock
-                    if (result.avatar == null){
-                        binding.avatar.visibility = View.GONE
-                    } else {
-                        Glide
-                            .with(view)
-                            .load(result.avatar)
-                            .into(binding.avatar)
+                    binding.apply {
+                        progressBarDetailsStockFragment.visibility = View.GONE
+                        val result = it.data
+                        symbolStockDetailsFragment.text = stockSymbol
+                        nameCurrencyDetailsFragment.text = result.currency
+                        datetimeDetailsFragment.text = result.datetime
+                        nameExchangeDetailsFragment.text = result.exchange
+                        priceCloseDetailsFragment.text = result.closePrice.toString()
+                        nameDetailsFragment.text = nameStock
+                        if (result.avatar == null) {
+                            avatar.visibility = View.GONE
+                        } else {
+                            Glide
+                                .with(view)
+                                .load(result.avatar)
+                                .into(avatar)
+                        }
                     }
                 }
             }

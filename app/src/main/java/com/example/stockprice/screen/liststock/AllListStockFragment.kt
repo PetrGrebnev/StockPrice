@@ -147,6 +147,7 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
             }
             R.id.settings -> {
                 val intent = Intent(getKoin().get(), SettingsActivity::class.java)
+                activity?.finish()
                 startActivity(intent)
             }
         }

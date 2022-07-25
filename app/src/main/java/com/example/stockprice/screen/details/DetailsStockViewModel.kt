@@ -54,7 +54,7 @@ class DetailsStockViewModel(
         if (internetConnection()) {
             viewModelScope.launch(Dispatchers.IO) {
                 val response = repository.getDetails(symbolStock)
-                if (response.body()?.code != 200) {
+                if (response.body()?.code != 400) {
                     response.body()?.let {
                         val stock = detailsModelsData(
                             it, avatarStock, symbolStock

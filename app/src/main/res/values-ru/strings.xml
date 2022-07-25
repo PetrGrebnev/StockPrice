@@ -28,4 +28,6 @@
     <string name="about_app_title">GitHub</string>
     <string name="data_intent">https://github.com/PetrGrebnev/StockPrice</string>
     <string name="title_activity_settings">Настройки</string>
+
+    <string name="error_details">Ошибка: информация отсутствует</string>
 </resources>
