@@ -30,4 +30,6 @@
     <string name="title_activity_settings">Настройки</string>
 
     <string name="error_details">Ошибка: информация отсутствует</string>
+    <string name="not_internet_connection">Отсутсвтует подключение к интернету</string>
+
 </resources>

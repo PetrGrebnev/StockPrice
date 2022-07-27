@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.activity.SplashActivity">
 
-    <data>
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="350dp"
+        android:layout_height="286dp"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/animation_splash">
 
-    </data>
+    </com.airbnb.lottie.LottieAnimationView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screen.activity.SplashActivity">
-
-        <ImageView
-            android:id="@+id/logo_splash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="250dp"
-            android:src="@mipmap/ic_banner"
-            tools:ignore="ContentDescription" />
-
-    </RelativeLayout>
-</layout>
+</FrameLayout>

@@ -28,53 +28,41 @@ class DetailsStockViewModel(
         getStockDetails(symbolStock)
     }
 
-    private fun internetConnection() =
-        MyUtils.isInternetAvailable(KoinJavaComponent.getKoin().get())
-
     private fun getAvatarStock(symbolStock: String) {
-        if (internetConnection()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val response = repository.getAvatarStock(symbolStock)
-                if (response.isSuccessful) {
-                    avatarStock = response.body()!!.url
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = repository.getAvatarStock(symbolStock)
+            if (response.isSuccessful) {
+                avatarStock = response.body()!!.url
             }
-        } else {
-            Toast.makeText(
-                KoinJavaComponent.getKoin().get(),
-                "No internet connection",
-                Toast.LENGTH_SHORT
-            )
-                .show()
         }
     }
 
     private fun getStockDetails(symbolStock: String) {
         _stock.postValue(ResultState.Loading())
-        if (internetConnection()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val response = repository.getDetails(symbolStock)
-                if (response.body()?.code != 400) {
-                    response.body()?.let {
-                        val stock = detailsModelsData(
-                            it, avatarStock, symbolStock
-                        )
-                        _stock.postValue(ResultState.Success(stock))
-                        repository.insertDetailsStock(stock)
-                        repository.updateDetailsStock(stock)
-                    }
-                } else {
-                    _stock.postValue(ResultState.Error(RuntimeException("Error")))
-                }
-            }
-        } else {
-            viewModelScope.launch(Dispatchers.IO) {
-                val stock = repository.getDetailsStock(symbolStock)
-                if (stock != null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = repository.getDetails(symbolStock)
+            if (response.body()?.code != 400) {
+                response.body()?.let {
+                    val stock = detailsModelsData(
+                        it, avatarStock, symbolStock
+                    )
                     _stock.postValue(ResultState.Success(stock))
-                } else {
-                    _stock.postValue(ResultState.Error(RuntimeException("Is stock null")))
+                    repository.insertDetailsStock(stock)
+                    repository.updateDetailsStock(stock)
                 }
+            } else {
+                _stock.postValue(ResultState.Error(RuntimeException("Error")))
+            }
+        }
+    }
+
+    fun getStockDetailsNotInternet(symbolStock: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val stock = repository.getDetailsStock(symbolStock)
+            if (stock != null) {
+                _stock.postValue(ResultState.Success(stock))
+            } else {
+                _stock.postValue(ResultState.Error(RuntimeException("Is stock null")))
             }
         }
     }

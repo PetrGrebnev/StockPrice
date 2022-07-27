@@ -1,200 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screen.activity.SplashActivity">
 
-    <data>
 
-    </data>
+    <ProgressBar
+        android:id="@+id/progressBarDetailsStockFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/symbol_stock_details_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".screen.activity.SplashActivity">
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/size_text_details"
+        android:textStyle="bold"
+        android:theme="@style/StyleText"
+        tools:ignore="SpUsage"
+        tools:text="Symbol" />
 
-        <ProgressBar
-            android:id="@+id/progressBarDetailsStockFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="150dp">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
             android:layout_gravity="center"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:rotation="0"
+            android:rotationX="0"
+            android:rotationY="0"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:theme="@style/DetailsFragmentTextInfo">
 
         <TextView
-            android:id="@+id/symbol_stock_details_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/size_text_details"
-            android:textStyle="bold"
-            android:theme="@style/StyleText"
-            tools:ignore="SpUsage"
-            tools:text="Symbol" />
-
-        <androidx.cardview.widget.CardView
+            android:id="@+id/company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:elevation="10dp"
-            app:cardCornerRadius="150dp">
+            android:layout_alignParentStart="true"
+            android:text="@string/company_name"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:layout_gravity="center"
-                android:rotation="0"
-                android:rotationX="0"
-                android:rotationY="0"
-                tools:srcCompat="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_details_fragment"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:theme="@style/DetailsFragmentTextInfo">
+            android:layout_alignParentEnd="true"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="Name" />
 
-            <TextView
-                android:id="@+id/company_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/company_name"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/name_details_fragment"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage"
-                tools:text="Name" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:theme="@style/DetailsFragmentTextInfo">
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:theme="@style/DetailsFragmentTextInfo">
+            android:layout_alignParentStart="true"
+            android:text="@string/exchange"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/exchange"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage" />
-
-            <TextView
-                android:id="@+id/name_exchange_details_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage"
-                tools:text="Name exchange" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_exchange_details_fragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:theme="@style/DetailsFragmentTextInfo">
+            android:layout_alignParentEnd="true"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="Name exchange" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/currency"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/name_currency_details_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage"
-                tools:text="Name currency" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:theme="@style/DetailsFragmentTextInfo">
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:theme="@style/DetailsFragmentTextInfo">
+            android:layout_alignParentStart="true"
+            android:text="@string/currency"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/date"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage" />
-
-            <TextView
-                android:id="@+id/datetime_details_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage"
-                tools:text="DateTime" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/name_currency_details_fragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            android:theme="@style/DetailsFragmentTextInfo">
+            android:layout_alignParentEnd="true"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="Name currency" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@string/end_price"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="SpUsage" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/price_close_details_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:textSize="@dimen/size_text_details"
-                android:textStyle="bold"
-                tools:ignore="RelativeOverlap,SpUsage"
-                tools:text="Price" />
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:theme="@style/DetailsFragmentTextInfo">
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/date"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
 
-</layout>
+        <TextView
+            android:id="@+id/datetime_details_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage"
+            tools:text="DateTime" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:theme="@style/DetailsFragmentTextInfo">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/end_price"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/price_close_details_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/size_text_details"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap,SpUsage"
+            tools:text="Price" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -2,11 +2,9 @@ package com.example.stockprice.screen.liststock
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -15,16 +13,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stockprice.R
+import com.example.stockprice.databinding.AllListStockFragmentBinding
 import com.example.stockprice.utils.SortOrder
 import com.example.stockprice.utils.ResultState
-import com.example.stockprice.databinding.AllListStockFragmentBinding
 import com.example.stockprice.datamodels.database.StockModelDatabase
 import com.example.stockprice.screen.activity.SettingsActivity
+import com.example.stockprice.utils.MyUtils
 import org.koin.android.ext.android.getKoin
+import org.koin.java.KoinJavaComponent
 
 class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
 
-    private lateinit var bindingAllStock: AllListStockFragmentBinding
+    private var bindingAllStock: AllListStockFragmentBinding? = null
     private val binding
         get() = bindingAllStock
 
@@ -33,11 +33,20 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
     private var liveDataStock: LiveData<ResultState<List<StockModelDatabase>>>? = null
     private val observer: (ResultState<List<StockModelDatabase>>) -> Unit = {
         when (it) {
-            is ResultState.Error -> binding.textError.text = "ERROR: " + it.throwable.message
-            is ResultState.Loading -> binding.progressBarListStockFragment.visibility =
+            is ResultState.Error -> binding?.textError?.text = "ERROR: " + it.throwable.message
+            is ResultState.Loading -> binding?.progressBarListStockFragment?.visibility =
                 View.VISIBLE
             is ResultState.Success -> adapter.setListNote(it.data)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        bindingAllStock = AllListStockFragmentBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,34 +63,36 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
                 ) as T
             }
         }
-        allStockViewModel = ViewModelProvider(this, factory).get(AllLIstStockViewModel::class.java)
+        allStockViewModel = ViewModelProvider(this, factory)[AllLIstStockViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindingAllStock = AllListStockFragmentBinding.bind(view)
+        internetConnection()
         adapterCreate()
-
-        binding.apply {
-            binding.allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
-            binding.allListStocks.adapter = adapter
+        binding?.apply {
+            allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
+            allListStocks.adapter = adapter
             refresh.setOnRefreshListener {
                 allStockViewModel.setSortOrder(SortOrder.ASC)
                 refresh.isRefreshing = false
+                internetConnection()
             }
         }
     }
 
     private fun adapterCreate() {
-        adapter = ListStocksAdapter(layoutInflater) { symbol, nameStock ->
+        adapter = ListStocksAdapter { symbol, nameStock ->
             findNavController().navigate(
                 AllListStockFragmentDirections.actionAllListStockFragmentToDetailsStockFragment(
                     symbol, nameStock
                 )
             )
         }
-        binding.allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
-        binding.allListStocks.adapter = adapter
+        binding?.apply {
+            allListStocks.layoutManager = LinearLayoutManager(getKoin().get())
+            allListStocks.adapter = adapter
+        }
         observeStocks(adapter)
     }
 
@@ -89,19 +100,25 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
         allStockViewModel.stocks.observe(viewLifecycleOwner) {
             when (it) {
                 is ResultState.Error -> {
-                    binding.textError.text = "ERROR: " + it.throwable.message
-                    binding.allListStocks.visibility = View.GONE
-                    binding.progressBarListStockFragment.visibility = View.GONE
+                    binding?.apply {
+                        textError.text = "ERROR: " + it.throwable.message
+                        allListStocks.visibility = View.GONE
+                        progressBarListStockFragment.visibility = View.GONE
+                    }
                 }
                 is ResultState.Loading -> {
-                    binding.textError.visibility = View.GONE
-                    binding.progressBarListStockFragment.visibility = View.VISIBLE
-                    binding.allListStocks.visibility = View.GONE
+                    binding?.apply {
+                        textError.visibility = View.GONE
+                        progressBarListStockFragment.visibility = View.VISIBLE
+                        allListStocks.visibility = View.GONE
+                    }
                 }
                 is ResultState.Success -> {
-                    binding.textError.visibility = View.GONE
-                    binding.progressBarListStockFragment.visibility = View.GONE
-                    binding.allListStocks.visibility = View.VISIBLE
+                    binding?.apply {
+                        textError.visibility = View.GONE
+                        progressBarListStockFragment.visibility = View.GONE
+                        allListStocks.visibility = View.VISIBLE
+                    }
                     adapter.setListNote(it.data)
                 }
             }
@@ -162,5 +179,21 @@ class AllListStockFragment : Fragment(R.layout.all_list_stock_fragment) {
         allStockViewModel.sortOrder.observe(viewLifecycleOwner){ sortOrder ->
             allStockViewModel.listAllStock(sortOrder)
         }
+    }
+
+    private fun internetConnection() {
+        if (!MyUtils.isInternetAvailable(KoinJavaComponent.getKoin().get())) {
+            Toast.makeText(
+                KoinJavaComponent.getKoin().get(),
+                R.string.not_internet_connection,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bindingAllStock = null
     }
 }

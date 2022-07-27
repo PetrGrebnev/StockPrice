@@ -38,30 +38,17 @@ class AllLIstStockViewModel(
         this._sortOrder.value = newSortOrder
     }
 
-    private fun internetConnection() =
-        MyUtils.isInternetAvailable(KoinJavaComponent.getKoin().get())
-
     private fun loadingFromApi() {
         _stocks.value = ResultState.Loading()
-        if (internetConnection()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val response = repository.getListStockApi()
-                if (response.body() != null) {
-                    repository.insertStocks(response.body()!!.data.map {
-                        stockModelDatabase(it)
-                    })
-                    _stocks.postValue(ResultState.Success(repository.getAllStockASC()))
-                    return@launch
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = repository.getListStockApi()
+            if (response.body() != null) {
+                repository.insertStocks(response.body()!!.data.map {
+                    stockModelDatabase(it)
+                })
+                _stocks.postValue(ResultState.Success(repository.getAllStockASC()))
+                return@launch
             }
-        } else {
-            _stocks.value = ResultState.Error(RuntimeException("Not internet connection"))
-            Toast.makeText(
-                KoinJavaComponent.getKoin().get(),
-                "Not connection internet",
-                Toast.LENGTH_SHORT
-            )
-                .show()
         }
     }
 

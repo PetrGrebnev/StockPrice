@@ -10,7 +10,7 @@ import com.example.stockprice.R
 import com.example.stockprice.datamodels.database.StockModelDatabase
 
 class ListStocksAdapter(
-    private val layoutInflater: LayoutInflater,
+
     private val onClick: (symbol: String, nameStock: String) -> Unit
 ) : RecyclerView.Adapter<ListStocksAdapter.ViewHolder>(){
 
@@ -30,7 +30,7 @@ class ListStocksAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = layoutInflater.inflate(
+        val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.list_item_stock,
             parent,
             false

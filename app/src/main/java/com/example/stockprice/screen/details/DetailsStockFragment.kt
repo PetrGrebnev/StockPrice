@@ -2,6 +2,7 @@ package com.example.stockprice.screen.details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +14,9 @@ import com.bumptech.glide.Glide
 import com.example.stockprice.R
 import com.example.stockprice.utils.ResultState
 import com.example.stockprice.databinding.DetailsStokcFragmentBinding
+import com.example.stockprice.utils.MyUtils
 import org.koin.android.ext.android.getKoin
+import org.koin.java.KoinJavaComponent
 
 class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
 
@@ -45,6 +48,16 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
         val stockSymbol = args.symbol
         val nameStock = args.nameStock
         initViewModel(stockSymbol)
+
+        if (!internetConnection()){
+            Toast.makeText(
+                KoinJavaComponent.getKoin().get(),
+                R.string.not_internet_connection,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            detailsViewModel.getStockDetailsNotInternet(stockSymbol)
+        }
 
         detailsViewModel.stock.observe(viewLifecycleOwner) {
             when (it) {
@@ -83,4 +96,7 @@ class DetailsStockFragment : Fragment(R.layout.details_stokc_fragment) {
             }
         }
     }
+
+    private fun internetConnection() =
+        MyUtils.isInternetAvailable(KoinJavaComponent.getKoin().get())
 }
